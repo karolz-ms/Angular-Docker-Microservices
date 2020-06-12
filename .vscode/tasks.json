@@ -38,19 +38,64 @@
             ],
             "problemMatcher": "$msCompile"
         },
-
         {
             "label": "compose up",
             "type": "shell",
-            "command": "docker-compose up -d --build"
+            "command": "docker-compose up -d --build",
+            "problemMatcher": []
         },
-
+        {
+            "label": "compose up noaspnet",
+            "type": "shell",
+            "command": "docker-compose up -d node postgres mongodb nginx",
+            "problemMatcher": []
+        },
         {
             "label": "browse app",
             "type": "shell",
             "windows": {
                 "command": "start http://localhost:8080"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "angulardockermicroservices:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/microservices/aspnet_core/.docker/aspnetcore.development.dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/microservices/aspnet_core/AspNetCorePostgreSQLDockerApp.csproj"
             }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build: debug",
+                "compose up noaspnet"
+            ],
+            "dockerRun": {
+                "network": "angular-docker-microservices_app-network",
+                "volumes": [
+                    {
+                        "localPath": "${workspaceFolder}/microservices/aspnet_core",
+                        "containerPath": "/var/www/aspnetcoreapp",
+                        "permissions": "ro"
+                    }
+                ]
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/microservices/aspnet_core/AspNetCorePostgreSQLDockerApp.csproj",
+                "enableDebugging": true
+            },
         }
     ]
 }

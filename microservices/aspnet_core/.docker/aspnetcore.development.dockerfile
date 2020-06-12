@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:sdk
+FROM microsoft/dotnet:sdk as base
 
 LABEL author="Dan Wahlin" 
 
@@ -9,6 +9,8 @@ ENV ASPNETCORE_ENVIRONMENT=development
 EXPOSE 5000
 
 WORKDIR /var/www/aspnetcoreapp
+
+FROM base as final
 
 CMD ["/bin/bash", "-c", "dotnet restore && dotnet watch run"]
 
