@@ -1,16 +1,56 @@
 {
-    "version": "0.1.0",
-    "command": "dotnet",
-    "isShellCommand": true,
-    "args": [],
+    "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "build",
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
             "args": [
-                "${workspaceRoot}/microservices/aspnet_core/AspNetCorePostgreSQLDockerApp.csproj"
+                "build",
+                "${workspaceFolder}/microservices/aspnet_core/AspNetCorePostgreSQLDockerApp.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
             ],
-            "isBuildCommand": true,
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/microservices/aspnet_core/AspNetCorePostgreSQLDockerApp.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/microservices/aspnet_core/AspNetCorePostgreSQLDockerApp.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "compose up",
+            "type": "shell",
+            "command": "docker-compose up -d --build"
+        },
+
+        {
+            "label": "browse app",
+            "type": "shell",
+            "windows": {
+                "command": "start http://localhost:8080"
+            }
         }
     ]
 }
