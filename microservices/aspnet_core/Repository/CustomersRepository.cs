@@ -93,6 +93,11 @@ namespace AspNetCorePostgreSQLDockerApp.Repository
             {
                _Logger.LogError($"Error in {nameof(DeleteCustomerAsync)}: " + exp.Message);
             }
+
+            // **************************************************************************
+            // Comment/uncomment the following line when measuring inner loop performance
+            await Task.Delay(500);
+
             return false;
         }
 
