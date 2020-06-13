@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:sdk as base
+FROM microsoft/dotnet/core/sdk:2.1 as base
 
 LABEL author="Dan Wahlin" 
 

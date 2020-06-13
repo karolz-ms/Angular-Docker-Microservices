@@ -39,7 +39,12 @@
         "preLaunchTask": "docker-run: debug",
         "netCore": {
             "appProject": "${workspaceFolder}/microservices/aspnet_core/AspNetCorePostgreSQLDockerApp.csproj"
-        }
+        },
+        "serverReadyAction": {
+            "action": "openExternally",
+            "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)", 
+            "uriFormat": "http://localhost:8080"
+        },
     }
 ]
 }
