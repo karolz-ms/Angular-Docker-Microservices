@@ -22,3 +22,5 @@ To run the project (development mode):
 
 1. To see your container CPU utilization, memory, etc. visit the
 cAdvisor URL: http://localhost:8081
+
+1. When done exploring, run `docker-compose down`
